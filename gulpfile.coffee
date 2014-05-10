@@ -7,7 +7,7 @@ connect = require 'gulp-connect'
 
 gulp.task 'serve', connect.server
 
-gulp.task 'default', ->
+gulp.task 'app', ->
   browserify
     entries: ['./app.coffee']
     extensions: ['.coffee']
@@ -16,3 +16,8 @@ gulp.task 'default', ->
   .pipe gulp.dest './build'
   .pipe streamify uglify()
   .pipe gulp.dest './build/min'
+
+gulp.task 'watch', ->
+  gulp.watch ['*.coffee', 'pages/*'], ['app']
+
+gulp.task 'default', ['serve', 'watch']
