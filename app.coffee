@@ -3,13 +3,17 @@ Ractive = require 'ractive'
 templates = require './templates'
 settings = require './settings'
 
+currentRactive = null
+
 ractive = (tmpl) -> (ctx) ->
-  r = ctx.ractive = new Ractive
+  currentRactive?.teardown()
+  ctx.state.rdata = ctx.state.rdata ? {}
+  currentRactive = ctx.ractive = new Ractive
     el: '#app-container'
     template: templates[tmpl]
-    data: ctx.state
+    data: ctx.state.rdata
     debug: settings.debug
-  r.on 'change', -> ctx.save()
+  currentRactive.on 'teardown', -> ctx.save()
 
 page '*', (ctx, next) ->
   next()
