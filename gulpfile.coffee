@@ -20,4 +20,4 @@ gulp.task 'app', ->
 gulp.task 'watch', ->
   gulp.watch ['*.coffee', 'pages/*'], ['app']
 
-gulp.task 'default', ['serve', 'watch']
+gulp.task 'default', ['app', 'serve', 'watch']
