@@ -1,9 +1,19 @@
 page = require 'page'
-index = require './pages/index'
-other = require './pages/other'
-notfound = require './pages/notfound'
+Ractive = require 'ractive'
+templates = require './templates'
+settings = require './settings'
 
-page '/', index
-page '/other', other
-page '*', notfound
+ractive = (tmpl) -> (ctx) ->
+  r = ctx.ractive = new Ractive
+    el: '#app-container'
+    template: templates[tmpl]
+    data: ctx.state
+    debug: settings.debug
+  r.on 'change', -> ctx.save()
+
+page '*', (ctx, next) ->
+  next()
+page '/', ractive 'index'
+page '/other', ractive 'other'
+page '*', ractive 'notfound'
 page()
