@@ -15,8 +15,7 @@ ractive = (page) -> (ctx) ->
     debug: settings.debug
   currentRactive.on 'teardown', -> ctx.save()
   page.attach? currentRactive
-  for event, handler of page.events
-    currentRactive.on event, handler
+  currentRactive.on page.events
 
 page '*', (ctx, next) ->
   next()
