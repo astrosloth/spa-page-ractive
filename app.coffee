@@ -5,21 +5,17 @@ settings = require './settings'
 
 currentRactive = null
 
-ractive = (page) -> (ctx) ->
+switchRactive = (RactExt) -> (ctx) ->
   currentRactive?.teardown()
-  ctx.state.rdata = ctx.state.rdata ? page.data
-  currentRactive = ctx.ractive = new Ractive
+  ractOpts =
     el: '#app-container'
-    template: page.template
-    data: ctx.state.rdata
     debug: settings.debug
+  if ctx.state.rdata? then ractOpts.data = ctx.state.rdata
+  currentRactive = ctx.ractive = new RactExt ractOpts
+  ctx.state.rdata = currentRactive.get()
   currentRactive.on 'teardown', -> ctx.save()
-  page.attach? currentRactive
-  currentRactive.on page.events
 
-page '*', (ctx, next) ->
-  next()
-page '/', ractive pages.index
-page '/other', ractive pages.other
-page '*', ractive pages.notfound
+for p in pages
+  page p.path, switchRactive p.RactExt
+
 page()

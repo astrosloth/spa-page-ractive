@@ -1,5 +1,5 @@
 fs = require 'fs'
+Ractive = require 'ractive'
 
-module.exports = new class
-  constructor: ->
-    @template = fs.readFileSync 'pages/notfound.ract', 'utf8'
+module.exports = Ractive.extend
+  template: fs.readFileSync 'pages/notfound.ract', 'utf8'

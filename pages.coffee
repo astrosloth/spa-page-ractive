@@ -1,4 +1,12 @@
-module.exports =
-  index: require './pages/index'
-  other: require './pages/other'
-  notfound: require './pages/notfound'
+module.exports = pages = []
+pages.push
+  path: '/'
+  RactExt: require './pages/index'
+
+pages.push
+  path: '/other'
+  RactExt: require './pages/other'
+
+pages.push
+  path: '*'
+  RactExt: require './pages/notfound'
