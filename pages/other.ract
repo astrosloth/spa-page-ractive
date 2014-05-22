@@ -1,1 +1,7 @@
 <h1>Other</h1>
+<h2>Editable</h2>
+<editable value="{{e}}" />
+<span>{{e}}</span>
+<h2>Another editable</h2>
+<editable value="{{e2}}" />
+<span>{{e2}}</span>

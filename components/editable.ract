@@ -1,0 +1,8 @@
+<div>
+  {{#editing}}
+  <input type="text" value="{{value}}" on-blur="done" />
+  {{/editing}}
+  {{#!editing}}
+  <span on-click="edit">{{value}}</span>
+  {{/!editing}}
+</div>
