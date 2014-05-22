@@ -24,11 +24,5 @@
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^0.3.0",
     "vinyl-source-stream": "^0.1.1"
-  },
-  "browserify": {
-    "transform": [
-      "coffeeify",
-      "brfs"
-    ]
   }
 }
