@@ -2,7 +2,7 @@ fs = require 'fs'
 
 module.exports = new class
   constructor: ->
-    @template = fs.readFileSync 'pages/index.html', 'utf8'
+    @template = fs.readFileSync 'pages/index.ract', 'utf8'
     @data =
       example: 'fish'
       clickCount: 0
