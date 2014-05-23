@@ -1,21 +1,27 @@
 page = require 'page'
 Ractive = require 'ractive'
 pages = require './pages'
+components = require './components'
 settings = require './settings'
 
-currentRactive = null
+appHost = new class
+  constructor: -> @teardown()
 
-switchRactive = (RactExt) -> (ctx) ->
-  currentRactive?.teardown()
-  ractOpts =
-    el: '#app-container'
-    debug: settings.debug
-  if ctx.state.rdata? then ractOpts.data = ctx.state.rdata
-  currentRactive = ctx.ractive = new RactExt ractOpts
-  ctx.state.rdata = currentRactive.get()
-  currentRactive.on 'teardown', -> ctx.save()
+  teardown: ->
+    @currentRact?.teardown()
+    @currentRact = null
 
-for p in pages
-  page p.path, switchRactive p.RactExt
+  switchTo: (Ract) -> (ctx) =>
+    @teardown()
+    opts =
+      el: '#app-container'
+      debug: settings.debug
+    @currentRact = new Ract opts
+
+for name, ract of components
+  Ractive.components[name] = ract
+
+for path, Ract of pages
+  page path, appHost.switchTo Ract
 
 page()

@@ -6,9 +6,7 @@ module.exports = Ractive.extend
   init: ->
     @on 'edit', ->
       @set 'editing', true
-      input = @find 'input'
-      #input.focus()
-      input.select()
+      @find('input').select()
 
     @on 'done', -> @set 'editing', false
 
