@@ -1,0 +1,6 @@
+<div>
+  <input type="range" value="{{frequency}}" min="{{min}}" max="{{max}}" />
+  <input type="text" value="{{frequency}}" size="4" />
+  <br />
+  <button on-click="toggle">{{ playing ? 'Stop' : 'Start' }}</button>
+</div>
